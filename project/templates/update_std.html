@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student — Student Management System</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f7ff;
+            color: #334155;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: #ffffff;
+            box-shadow: 0 2px 12px rgba(99, 102, 241, 0.08);
+            padding: 16px 40px;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap; gap: 14px;
+            position: sticky; top: 0; z-index: 10;
+        }
+
+        nav .brand { font-size: 20px; font-weight: 700; color: #4338ca; }
+
+        nav ul { list-style: none; display: flex; gap: 8px; flex-wrap: wrap; }
+
+        nav ul li a {
+            text-decoration: none; color: #475569;
+            font-weight: 600; font-size: 14px;
+            padding: 9px 18px; border-radius: 25px;
+            transition: 0.25s;
+        }
+
+        nav ul li a:hover { background: #eef2ff; color: #4338ca; }
+
+        nav ul li a.active {
+            background: linear-gradient(135deg, #a5b4fc, #c4b5fd);
+            color: #312e81;
+        }
+
+        .wrap { display: flex; justify-content: center; padding: 50px 15px; }
+
+        form {
+            width: 100%; max-width: 480px;
+            background: #ffffff; padding: 36px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.10);
+            border: 1px solid #eef2ff;
+        }
+
+        h2 {
+            text-align: center; color: #4338ca;
+            margin-bottom: 8px; font-size: 26px;
+        }
+
+        .hint {
+            text-align: center; color: #94a3b8;
+            font-size: 13.5px; margin-bottom: 26px;
+        }
+
+        label {
+            display: block; margin-bottom: 7px;
+            color: #475569; font-weight: 600; font-size: 14px;
+        }
+
+        input, select {
+            width: 100%; padding: 12px 14px;
+            margin-bottom: 18px;
+            border: 1.5px solid #e0e7ff;
+            border-radius: 10px; font-size: 15px;
+            outline: none; background: #f8faff;
+            color: #334155; transition: 0.25s;
+            font-family: inherit;
+        }
+
+        input:hover, select:hover { border-color: #c7d2fe; }
+
+        input:focus, select:focus {
+            border-color: #a5b4fc;
+            box-shadow: 0 0 0 4px rgba(165, 180, 252, 0.25);
+            background: #ffffff;
+        }
+
+        button {
+            width: 100%; padding: 13px;
+            background: linear-gradient(135deg, #a5b4fc, #c4b5fd);
+            color: #312e81; border: none; border-radius: 10px;
+            font-size: 15.5px; font-weight: 700; cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(165, 180, 252, 0.4);
+            font-family: inherit;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 20px rgba(165, 180, 252, 0.55);
+        }
+
+        .back {
+            display: block; text-align: center; margin-top: 20px;
+            text-decoration: none; color: #6366f1;
+            font-weight: 600; font-size: 14px;
+            transition: 0.25s;
+        }
+
+        .back:hover { color: #4338ca; text-decoration: underline; }
+
+        .preview {
+            text-align: center; margin-bottom: 16px;
+        }
+
+        .preview img {
+            width: 90px; height: 90px; border-radius: 50%;
+            object-fit: cover; border: 4px solid #e0e7ff;
+            background: #eef2ff;
+        }
+
+        @media (max-width: 600px) {
+            nav { padding: 14px 18px; }
+            form { padding: 26px 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="brand">Student Management System</div>
+        <ul>
+            <li><a href="/" class="active">Home</a></li>
+            <li><a href="/students/add">Add Student</a></li>
+        </ul>
+    </nav>
+
+    <div class="wrap">
+
+        <form action="/students/update/{{ std[0] }}" method="POST">
+
+            <h2>Update Student</h2>
+            <p class="hint">Editing record #{{ std[0] }}</p>
+
+            <div class="preview">
+                <img src="{{ std[5] }}" alt="{{ std[1] }}">
+            </div>
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" value="{{ std[1] }}" required>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" value="{{ std[2] }}" min="1" max="100" required>
+
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender" required>
+                <option value="Male" {% if std[6] == "Male" %}selected{% endif %}>Male</option>
+                <option value="Female" {% if std[6] == "Female" %}selected{% endif %}>Female</option>
+                <option value="Other" {% if std[6] == "Other" %}selected{% endif %}>Other</option>
+            </select>
+
+            <label for="marks">Marks</label>
+            <input type="number" id="marks" name="marks" value="{{ std[4] }}" min="0" max="100" required>
+
+            <label for="course">Course</label>
+            <input type="text" id="course" name="course" value="{{ std[3] }}" required>
+
+            <label for="image">Image URL</label>
+            <input type="text" id="image" name="image" value="{{ std[5] }}"
+                   placeholder="https://example.com/photo.jpg" required>
+
+            <label for="status">Attendance</label>
+            <select name="status" id="status" required>
+                <option value="1" {% if std[7] == 1 %}selected{% endif %}>Present</option>
+                <option value="0" {% if std[7] == 0 %}selected{% endif %}>Absent</option>
+            </select>
+
+            <button type="submit">Save Changes</button>
+
+            <a href="/" class="back">← Back to Home</a>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

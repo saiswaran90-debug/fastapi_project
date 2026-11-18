@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student — Student Management System</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f7ff;
+            color: #334155;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: #ffffff;
+            box-shadow: 0 2px 12px rgba(99, 102, 241, 0.08);
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav .brand { font-size: 20px; font-weight: 700; color: #4338ca; }
+
+        nav ul { list-style: none; display: flex; gap: 8px; flex-wrap: wrap; }
+
+        nav ul li a {
+            text-decoration: none; color: #475569;
+            font-weight: 600; font-size: 14px;
+            padding: 9px 18px; border-radius: 25px;
+            transition: 0.25s;
+        }
+
+        nav ul li a:hover { background: #eef2ff; color: #4338ca; }
+
+        nav ul li a.active {
+            background: linear-gradient(135deg, #a5b4fc, #c4b5fd);
+            color: #312e81;
+        }
+
+        .wrap { display: flex; justify-content: center; padding: 50px 15px; }
+
+        form {
+            width: 100%; max-width: 480px;
+            background: #ffffff; padding: 36px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.10);
+            border: 1px solid #eef2ff;
+        }
+
+        h2 {
+            text-align: center; color: #4338ca;
+            margin-bottom: 8px; font-size: 26px;
+        }
+
+        .hint {
+            text-align: center; color: #94a3b8;
+            font-size: 13.5px; margin-bottom: 26px;
+        }
+
+        label {
+            display: block; margin-bottom: 7px;
+            color: #475569; font-weight: 600; font-size: 14px;
+        }
+
+        input, select {
+            width: 100%; padding: 12px 14px;
+            margin-bottom: 18px;
+            border: 1.5px solid #e0e7ff;
+            border-radius: 10px; font-size: 15px;
+            outline: none; background: #f8faff;
+            color: #334155; transition: 0.25s;
+            font-family: inherit;
+        }
+
+        input:hover, select:hover { border-color: #c7d2fe; }
+
+        input:focus, select:focus {
+            border-color: #a5b4fc;
+            box-shadow: 0 0 0 4px rgba(165, 180, 252, 0.25);
+            background: #ffffff;
+        }
+
+        button {
+            width: 100%; padding: 13px;
+            background: linear-gradient(135deg, #a5b4fc, #c4b5fd);
+            color: #312e81; border: none; border-radius: 10px;
+            font-size: 15.5px; font-weight: 700; cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(165, 180, 252, 0.4);
+            font-family: inherit;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 20px rgba(165, 180, 252, 0.55);
+        }
+
+        .back {
+            display: block; text-align: center; margin-top: 20px;
+            text-decoration: none; color: #6366f1;
+            font-weight: 600; font-size: 14px;
+            transition: 0.25s;
+        }
+
+        .back:hover { color: #4338ca; text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            nav { padding: 14px 18px; }
+            form { padding: 26px 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="brand">Student Management System</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/students/add" class="active">Add Student</a></li>
+        </ul>
+    </nav>
+
+    <div class="wrap">
+
+        <form action="/students/add" method="POST">
+
+            <h2>Add Student</h2>
+            <p class="hint">Fill in the student details below</p>
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Riya Sharma" required>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="1" max="100" placeholder="e.g. 20" required>
+
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender" required>
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="marks">Marks</label>
+            <input type="number" id="marks" name="marks" min="0" max="100" placeholder="e.g. 85" required>
+
+            <label for="course">Course</label>
+            <input type="text" id="course" name="course" placeholder="e.g. B.Tech CSE" required>
+
+            <label for="image">Image URL</label>
+            <input type="text" id="image" name="image"
+                   placeholder="https://example.com/photo.jpg" required>
+
+            <label for="status">Attendance</label>
+            <select name="status" id="status" required>
+                <option value="1">Present</option>
+                <option value="0">Absent</option>
+            </select>
+
+            <button type="submit">Add Student</button>
+
+            <a href="/" class="back">← Back to Home</a>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
